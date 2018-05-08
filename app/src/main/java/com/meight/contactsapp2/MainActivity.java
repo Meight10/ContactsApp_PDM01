@@ -14,7 +14,7 @@ import com.meight.contactsapp2.models.ContactModel;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentContacts.OnListFragmentInteractionListener, FragmentContacts.OnListFragmentInteractionIcon{
 
 
     public static ArrayList<ContactModel> contacts;
@@ -87,5 +87,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onListFragmentInteraction(ContactModel item) {
 
+    }
+
+    @Override
+    public void onListFragmentInteractionIcon(ContactModel contact, int position) {
+        int index = contacts.indexOf(contact);
+        if(contact.getFavorite()){
+            contactsFav.remove(contacts.get(index));
+            contacts.get(index).setFavorite(false);
+            System.out.println("CHANGEED TO FALSE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            adapter.notifyDataSetChanged();
+        }else{
+            contactsFav.add(contacts.get(index));
+            contacts.get(index).setFavorite(true);
+            System.out.println("CHANGEED TO TRUE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void fillContacts(){
+
+    }
 }
