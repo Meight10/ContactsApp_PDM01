@@ -7,9 +7,12 @@ public class ContactModel implements Parcelable {
 
     private String name, number;
 
-    public ContactModel(String name, String number) {
+    private boolean favorite;
+
+    public ContactModel(String name, String number, boolean favorite) {
         this.name = name;
         this.number = number;
+        this.favorite = favorite;
     }
 
     public ContactModel(){}
@@ -33,6 +36,13 @@ public class ContactModel implements Parcelable {
         this.number = number;
     }
 
+    public boolean getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
 
     @Override
     public int describeContents() {
