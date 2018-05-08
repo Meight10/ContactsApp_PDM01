@@ -41,7 +41,7 @@ public class ContactsRvAdapter extends RecyclerView.Adapter<ContactsRvAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderContacts holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolderContacts holder, final int position) {
 
         holder.name.setText(listContacts.get(position).getName());
         holder.number.setText(listContacts.get(position).getNumber());
@@ -86,9 +86,10 @@ public class ContactsRvAdapter extends RecyclerView.Adapter<ContactsRvAdapter.Vi
             super(itemView);
 
             view = itemView;
-            name = itemView.findViewById(R.id.name_txtV);
-            number = itemView.findViewById(R.id.number_txtV);
-            favoriteIcon = itemView.findViewById(R.id.ic_favorites);
+            name = (TextView)itemView.findViewById(R.id.name_txtV);
+            number = (TextView)itemView.findViewById(R.id.number_txtV);
+
+            favoriteIcon = (ImageView)itemView.findViewById(R.id.ic_favorites);
         }
     }
 }

@@ -23,17 +23,20 @@ public class FragmentContacts extends Fragment{
     private OnListFragmentInteractionListener interactionListener;
     private OnListFragmentInteractionIcon interactionIcon;
 
-    private ContactsRvAdapter heroesRecyclerViewAdapter;
+    private ContactsRvAdapter contactsAdapter;
     private ViewPager vp;
+
     private String type;
     private ArrayList<ContactModel> contacts;
     private ArrayList<ContactModel> contactsFav;
 
-    public static FragmentContacts newInstance(String type, ArrayList<ContactModel> charactersModels) {
+    public FragmentContacts(){}
+
+    public static FragmentContacts newInstance(String type, ArrayList<ContactModel> contactsModel) {
         FragmentContacts fragment = new FragmentContacts();
         Bundle args = new Bundle();
         args.putString("type", type);
-        args.putParcelableArrayList(type, charactersModels);
+        args.putParcelableArrayList(type, contactsModel);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,8 +63,8 @@ public class FragmentContacts extends Fragment{
         RecyclerView recyclerView = (RecyclerView)rootView;
         recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
         vp = (ViewPager)getActivity().findViewById(R.id.viewPager);
-        heroesRecyclerViewAdapter = new ContactsRvAdapter(getList(), interactionListener, interactionIcon);
-        recyclerView.setAdapter(heroesRecyclerViewAdapter);
+        contactsAdapter = new ContactsRvAdapter(getList(), interactionListener, interactionIcon);
+        recyclerView.setAdapter(contactsAdapter);
 
         return rootView;
     }
