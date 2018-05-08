@@ -1,5 +1,6 @@
 package com.meight.contactsapp2;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.support.design.widget.TabLayout;
@@ -91,7 +92,9 @@ public class MainActivity extends AppCompatActivity implements FragmentContacts.
 
     @Override
     public void onListFragmentInteraction(ContactModel item) {
-
+        Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+        intent.putExtra("extra", item);
+        startActivity(intent);
     }
 
     @Override
