@@ -1,29 +1,24 @@
 package com.meight.contactsapp2;
 
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
-import android.widget.TextView;
+import com.meight.contactsapp2.adapters.PagerAdapter;
+import com.meight.contactsapp2.fragments.FragmentContacts;
+import com.meight.contactsapp2.models.ContactModel;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    public static ArrayList<Personajes> charactersListModels0;
-    public static ArrayList<Personajes> charactersListModels1;
+    public static ArrayList<ContactModel> contacts;
+    public static ArrayList<ContactModel> contactsFav;
 
     public static PagerAdapter adapter;
 
@@ -33,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if(savedInstanceState == null){
-            charactersListModels0 = new ArrayList<>();
-            charactersListModels1 = new ArrayList<>();
+            contacts = new ArrayList<>();
+            contactsFav = new ArrayList<>();
 
-            createCharactersListModes0();
+            fillContacts();
         }
 
 
@@ -73,15 +68,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void initComponents(){
 
-        TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layout);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         //tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_text_1));
         //tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_text_2));
 
-        List_Fragment fragment1 = List_Fragment.newInstance("s0", charactersListModels0);
-        List_Fragment fragment2 = List_Fragment.newInstance("s1", charactersListModels1);
-        System.out.println(charactersListModels1.toString() + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        FragmentContacts fragment1 = FragmentContacts.newInstance("0", contacts);
+        FragmentContacts fragment2 = FragmentContacts.newInstance("1", contactsFav);
+        System.out.println(contactsFav.toString() + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         adapter = new PagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(fragment1, getString(R.string.tab_text_1));
