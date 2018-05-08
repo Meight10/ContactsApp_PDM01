@@ -20,6 +20,9 @@ import java.util.ArrayList;
 
 public class FragmentContacts extends Fragment{
 
+    private OnListFragmentInteractionListener interactionListener;
+    private OnListFragmentInteractionIcon interactionIcon;
+
     private ContactsRvAdapter heroesRecyclerViewAdapter;
     private ViewPager vp;
     private String type;
@@ -57,7 +60,7 @@ public class FragmentContacts extends Fragment{
         RecyclerView recyclerView = (RecyclerView)rootView;
         recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
         vp = (ViewPager)getActivity().findViewById(R.id.viewPager);
-        heroesRecyclerViewAdapter = new ContactsRvAdapter(getList());
+        heroesRecyclerViewAdapter = new ContactsRvAdapter(getList(), interactionListener, interactionIcon);
         recyclerView.setAdapter(heroesRecyclerViewAdapter);
 
         return rootView;
@@ -69,6 +72,34 @@ public class FragmentContacts extends Fragment{
         }else
             return contactsFav;
 
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        //la actividad debe implementart OnListFragmentInteractionListener
+        if(context instanceof OnListFragmentInteractionListener){
+            interactionListener =  (OnListFragmentInteractionListener) context;
+            interactionIcon = (OnListFragmentInteractionIcon)context;
+        }else{
+            throw new RuntimeException(context.toString() + "debe implementar OnlistFragmentInteractionListener");
+        }
+
+    }
+
+    @Override
+    public void onDetach(){
+        super.onDetach();
+        interactionListener = null;
+        interactionIcon = null;
+    }
+
+    public interface OnListFragmentInteractionListener {
+        void onListFragmentInteraction(ContactModel item);
+    }
+
+    public interface OnListFragmentInteractionIcon{
+        void onListFragmentInteractionIcon(ContactModel item, int position);
     }
 
 
