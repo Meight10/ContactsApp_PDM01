@@ -1,5 +1,7 @@
 package com.meight.contactsapp2;
 
+import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 
@@ -109,6 +111,21 @@ public class MainActivity extends AppCompatActivity implements FragmentContacts.
     }
 
     private void fillContacts(){
+
+        Cursor cursor = this.getContentResolver().query(ContactsContract.
+                        CommonDataKinds.Phone.CONTENT_URI, null,
+                null, null, ContactsContract.Contacts.DISPLAY_NAME
+                        + " ASC");
+
+
+        cursor.moveToFirst();
+        while(cursor.moveToNext()){
+
+            contacts.add(new ContactModel(cursor.getString(cursor.getColumnIndex(ContactsContract.
+                    CommonDataKinds.Phone.DISPLAY_NAME)), cursor.getString(cursor.getColumnIndex(ContactsContract.
+                    CommonDataKinds.Phone.NUMBER)), false));
+
+        }
 
     }
 }
